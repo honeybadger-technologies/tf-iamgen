@@ -115,8 +115,6 @@ var SupportedResourceTypes = map[string]bool{
 	// Data sources (also important for understanding dependencies)
 	"aws_ami":                true,
 	"aws_availability_zones": true,
-	"aws_vpc":                true,
-	"aws_subnet":             true,
 }
 
 // IsAWSResource checks if a resource type is an AWS resource
