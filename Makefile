@@ -16,8 +16,9 @@ build: ## Build the application
 	$(GO) build $(GOFLAGS) -ldflags "-X main.Version=$(VERSION)" -o $(BUILD_DIR)/$(APP_NAME) .
 
 install-deps: ## Install Go dependencies
-	$(GO) mod download
 	$(GO) mod tidy
+	$(GO) mod download
+	$(GO) mod verify
 
 test: ## Run all tests
 	$(GO) test -v -cover ./...
