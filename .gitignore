@@ -1,0 +1,73 @@
+# Go
+*.go.bak
+*.exe
+*.exe~
+*.dll
+*.so
+*.so.*
+*.dylib
+/build/bin/
+/dist/
+
+# Binaries
+/tf-iamgen
+/bin/
+
+# Test coverage
+*.out
+*.cover
+
+# Go modules
+go.sum
+vendor/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Build artifacts
+*.o
+*.a
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Output files
+generated-policy.json
+*.policy.json
+*.tfplan
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# OS
+Thumbs.db
+.DS_Store
+*.pem
+*.key
+
+# Python (for Phase 2 backend)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+
+# Node (for Phase 2 UI)
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+.next/

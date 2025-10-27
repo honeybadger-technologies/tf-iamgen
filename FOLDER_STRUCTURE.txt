@@ -1,0 +1,452 @@
+================================================================================
+                    tf-iamgen Project Structure
+                    🛡️ AWS IAM Policy Generator
+================================================================================
+
+📁 ROOT DIRECTORY: /Users/ziv.lifshits/Workspace/honeybadger/tf-iamgen/
+
+┌─ 📋 CONFIGURATION & DOCUMENTATION
+│
+├─ 📄 main.go                              (TO CREATE)
+│  └─ Application entry point
+│
+├─ 📄 go.mod                               ✅ CREATED
+│  └─ Go module dependencies (Cobra, HCL, AWS SDK)
+│
+├─ 📄 go.sum                               (generated on first build)
+│  └─ Dependency version checksums
+│
+├─ 📄 Makefile                             ✅ CREATED
+│  ├─ make help              # Show all commands
+│  ├─ make build             # Compile app
+│  ├─ make test              # Run tests
+│  ├─ make lint              # Code quality
+│  ├─ make clean             # Clean artifacts
+│  ├─ make fmt               # Format code
+│  └─ make install-deps      # Install Go dependencies
+│
+├─ 📄 LICENSE                              ✅ CREATED
+│  └─ MIT License
+│
+├─ 📄 README.md                            ✅ CREATED
+│  └─ Quick start & project overview
+│
+├─ 📄 PROJECT_STRUCTURE.md                 ✅ CREATED
+│  └─ Detailed explanation of all directories
+│
+├─ 📄 SETUP_COMPLETE.md                    ✅ CREATED
+│  └─ Setup summary & next steps
+│
+└─ 📄 FOLDER_STRUCTURE.txt                 ✅ CREATED (this file)
+   └─ Visual ASCII structure representation
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 cmd/ (CLI Commands)
+│  
+│  ├─ 📄 root.go                            (TO CREATE)
+│  │  └─ Cobra CLI framework setup
+│  │     - Initialize CLI app
+│  │     - Register all commands
+│  │     - Global flags
+│  │
+│  ├─ 📄 analyze.go                         (TO CREATE)
+│  │  └─ "tf-iamgen analyze" command
+│  │     - Scan Terraform directory
+│  │     - Identify resources
+│  │     - Output resource list + required actions
+│  │
+│  ├─ 📄 generate.go                        (TO CREATE)
+│  │  └─ "tf-iamgen generate" command
+│  │     - Parse Terraform files
+│  │     - Generate IAM policy JSON
+│  │     - Save to file or stdout
+│  │
+│  └─ 📄 learn.go                           (TO CREATE - Phase 2)
+│     └─ "tf-iamgen learn" command (CloudTrail integration)
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 internal/ (Private Business Logic)
+│
+│  ├─ 📁 parser/ (Terraform HCL Parsing)
+│  │  │
+│  │  ├─ 📄 terraform_parser.go             (TO CREATE)
+│  │  │  └─ Main HCL parser implementation
+│  │  │     - Parse .tf files (HCL syntax)
+│  │  │     - Parse .tf.json files
+│  │  │     - Extract resource definitions
+│  │  │
+│  │  ├─ 📄 ast.go                          (TO CREATE)
+│  │  │  └─ Abstract Syntax Tree structures
+│  │  │     - Resource struct
+│  │  │     - Attribute definitions
+│  │  │
+│  │  └─ 📄 resources.go                    (TO CREATE)
+│  │     └─ Resource type definitions
+│  │        - Supported resource types
+│  │        - Resource validation
+│  │
+│  ├─ 📁 mapping/ (Resource → IAM Action Mapping)
+│  │  │
+│  │  ├─ 📄 aws_mapping.go                  (TO CREATE)
+│  │  │  └─ Main mapping manager
+│  │  │     - In-memory mapping storage
+│  │  │     - Lookup services
+│  │  │     - Service grouping
+│  │  │
+│  │  ├─ 📄 loader.go                       (TO CREATE)
+│  │  │  └─ YAML mapping file loader
+│  │  │     - Load YAML at startup
+│  │  │     - Parse mapping structure
+│  │  │     - Error handling
+│  │  │
+│  │  └─ 📄 cache.go                        (TO CREATE)
+│  │     └─ LRU cache for mappings
+│  │        - Cache lookups for performance
+│  │        - Configurable cache size
+│  │        - TTL support (optional)
+│  │
+│  ├─ 📁 policy/ (IAM Policy Generation)
+│  │  │
+│  │  ├─ 📄 generator.go                    (TO CREATE)
+│  │  │  └─ Core policy generation logic
+│  │  │     - Aggregate discovered actions
+│  │  │     - Group by AWS service
+│  │  │     - Build IAM statements
+│  │  │
+│  │  ├─ 📄 formatter.go                    (TO CREATE)
+│  │  │  └─ Output formatting
+│  │  │     - JSON formatting
+│  │  │     - Human-readable text
+│  │  │     - Pretty printing
+│  │  │
+│  │  └─ 📄 models.go                       (TO CREATE)
+│  │     └─ Policy data structures
+│  │        - Policy struct
+│  │        - Statement struct
+│  │        - Validation logic
+│  │
+│  └─ 📁 cloudtrail/ (Phase 2+ CloudTrail Integration)
+│     │
+│     ├─ 📄 collector.go                    (TO CREATE - Phase 2)
+│     │  └─ CloudTrail event collection
+│     │     - Query AWS CloudTrail
+│     │     - Filter events
+│     │
+│     ├─ 📄 analyzer.go                     (TO CREATE - Phase 2)
+│     │  └─ Event analysis
+│     │     - Extract IAM actions
+│     │     - Aggregate results
+│     │
+│     └─ 📄 models.go                       (TO CREATE - Phase 2)
+│        └─ CloudTrail data models
+│           - Event structures
+│           - Result aggregation
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 mappings/ (AWS IAM Mapping Database)
+│
+│  ├─ 📄 README.md                          (TO CREATE)
+│  │  └─ Mapping format documentation
+│  │     - YAML structure
+│  │     - How to add new resources
+│  │
+│  ├─ 📄 aws_mapping.yaml                   (TO CREATE)
+│  │  └─ Main resource → IAM action mappings
+│  │     Example:
+│  │     aws_s3_bucket:
+│  │       all:
+│  │         - s3:CreateBucket
+│  │         - s3:PutBucketPolicy
+│  │
+│  └─ 📁 services/ (Optional: Service-specific)
+│     │
+│     ├─ 📄 s3_mapping.yaml                 (TO CREATE)
+│     │  └─ S3-specific resource mappings
+│     │
+│     ├─ 📄 ec2_mapping.yaml                (TO CREATE)
+│     │  └─ EC2-specific resource mappings
+│     │
+│     ├─ 📄 rds_mapping.yaml                (TO CREATE)
+│     │  └─ RDS-specific resource mappings
+│     │
+│     └─ 📄 iam_mapping.yaml                (TO CREATE)
+│        └─ IAM-specific resource mappings
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 examples/ (Example Terraform Projects)
+│
+│  ├─ 📁 simple_vpc/
+│  │  ├─ 📄 main.tf                         (TO CREATE)
+│  │  │  └─ VPC resource definitions
+│  │  │
+│  │  ├─ 📄 variables.tf                    (TO CREATE)
+│  │  │  └─ Variable declarations
+│  │  │
+│  │  └─ 📄 outputs.tf                      (TO CREATE)
+│  │     └─ Output declarations
+│  │
+│  ├─ 📁 simple_s3/
+│  │  ├─ 📄 main.tf                         (TO CREATE)
+│  │  │  └─ S3 bucket definitions
+│  │  │
+│  │  ├─ 📄 variables.tf                    (TO CREATE)
+│  │  │
+│  │  └─ 📄 outputs.tf                      (TO CREATE)
+│  │
+│  └─ 📁 complex_deployment/ (Future)
+│     └─ (Multi-service architecture example)
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 tests/ (Test Suite)
+│
+│  ├─ 📁 unit/ (Fast, isolated unit tests)
+│  │  ├─ 📄 parser_test.go                  (TO CREATE)
+│  │  │  └─ Test Terraform parser
+│  │  │     - HCL parsing
+│  │  │     - Resource extraction
+│  │  │     - Error handling
+│  │  │
+│  │  ├─ 📄 mapping_test.go                 (TO CREATE)
+│  │  │  └─ Test mapping database
+│  │  │     - Resource lookups
+│  │  │     - Action retrieval
+│  │  │
+│  │  ├─ 📄 generator_test.go               (TO CREATE)
+│  │  │  └─ Test policy generation
+│  │  │     - Policy JSON validity
+│  │  │     - Action aggregation
+│  │  │
+│  │  └─ 📄 cache_test.go                   (TO CREATE)
+│  │     └─ Test caching layer
+│  │        - Cache hits/misses
+│  │        - Performance
+│  │
+│  └─ 📁 integration/ (Slow, realistic E2E tests - Phase 2+)
+│     ├─ 📄 e2e_test.go                     (TO CREATE - Phase 2)
+│     │  └─ End-to-end tests
+│     │     - Analyze example projects
+│     │     - Validate output
+│     │
+│     └─ 📁 fixtures/
+│        └─ Test data and fixtures
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 docs/ (Comprehensive Documentation) ✅ CREATED
+│
+│  ├─ 📄 ARCHITECTURE.md                    ✅ CREATED
+│  │  └─ System design & data flows
+│  │     - Component architecture
+│  │     - Data structures
+│  │     - Phase-based design
+│  │
+│  ├─ 📄 CONTRIBUTING.md                    ✅ CREATED
+│  │  └─ Developer guidelines
+│  │     - Setup instructions
+│  │     - Code style
+│  │     - PR workflow
+│  │
+│  ├─ 📄 STRUCTURE_GUIDE.md                 ✅ CREATED
+│  │  └─ Quick reference navigation
+│  │     - File locations
+│  │     - "I want to..." guide
+│  │
+│  ├─ 📄 MAPPING_FORMAT.md                  (TO CREATE)
+│  │  └─ Resource mapping guidelines
+│  │     - YAML structure
+│  │     - Adding new resources
+│  │     - Validation
+│  │
+│  ├─ 📄 API.md                             (TO CREATE)
+│  │  └─ CLI commands reference
+│  │     - Commands & flags
+│  │     - Output formats
+│  │
+│  ├─ 📄 EXAMPLES.md                        (TO CREATE)
+│  │  └─ Usage examples & workflows
+│  │
+│  ├─ 📄 PHASES.md                          (TO CREATE)
+│  │  └─ Detailed roadmap
+│  │     - Phase timelines
+│  │     - Feature details
+│  │
+│  └─ 📄 SECURITY.md                        (TO CREATE)
+│     └─ Security & privacy
+│        - Data handling
+│        - Compliance
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 scripts/ (Build & Utility Scripts)
+│
+│  ├─ 📄 build.sh                           (TO CREATE)
+│  │  └─ Cross-platform build script
+│  │     - Linux, macOS, Windows
+│  │     - Version tagging
+│  │
+│  ├─ 📄 install-deps.sh                    (TO CREATE)
+│  │  └─ Dependency installation
+│  │     - Go packages
+│  │     - Tools setup
+│  │
+│  ├─ 📄 test.sh                            (TO CREATE)
+│  │  └─ Test runner script
+│  │     - Unit tests
+│  │     - Coverage reports
+│  │
+│  ├─ 📄 lint.sh                            (TO CREATE)
+│  │  └─ Code quality script
+│  │     - go fmt
+│  │     - go vet
+│  │     - golangci-lint
+│  │
+│  └─ 📄 generate-mappings.sh               (TO CREATE)
+│     └─ Mapping generation helper
+│        - AWS IAM action extraction
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 ui/ (Web Dashboard - Phase 2+)
+│
+│  ├─ 📁 frontend/ (React Dashboard - Phase 2+)
+│  │  ├─ 📁 src/
+│  │  │  ├─ components/
+│  │  │  ├─ pages/
+│  │  │  └─ App.tsx
+│  │  │
+│  │  ├─ 📁 public/
+│  │  │  └─ Static assets
+│  │  │
+│  │  ├─ 📄 package.json
+│  │  │
+│  │  └─ 📄 tsconfig.json
+│  │
+│  └─ 📁 backend/ (FastAPI Backend - Phase 2+)
+│     ├─ 📁 app/
+│     │  ├─ 📄 main.py
+│     │  └─ API endpoints
+│     │
+│     └─ 📄 requirements.txt
+│        └─ Python dependencies
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 .github/ (GitHub Configuration)
+│
+│  └─ 📁 workflows/ (CI/CD Pipelines)
+│     ├─ 📄 test.yml                        (TO CREATE)
+│     │  └─ Run tests on push/PR
+│     │
+│     ├─ 📄 build.yml                       (TO CREATE)
+│     │  └─ Build releases on tag
+│     │
+│     └─ 📄 lint.yml                        (TO CREATE)
+│        └─ Code quality on push
+
+════════════════════════════════════════════════════════════════════════════════
+
+┌─ 📁 build/ (Build Artifacts - git-ignored)
+│
+│  └─ 📁 bin/
+│     ├─ 📦 tf-iamgen                       (Linux/macOS binary)
+│     └─ 📦 tf-iamgen.exe                   (Windows binary)
+
+════════════════════════════════════════════════════════════════════════════════
+
+📊 SUMMARY STATISTICS
+
+✅ Created:
+  - 4 Documentation files (README, ARCHITECTURE, CONTRIBUTING, STRUCTURE_GUIDE)
+  - 1 Setup summary file (SETUP_COMPLETE)
+  - 1 Go module file (go.mod)
+  - 1 Build automation file (Makefile)
+  - 1 License file (MIT)
+  - 1 Git ignore file
+  - 18 Directories (organized by purpose)
+
+📝 To Create:
+  - 8 Go source files (cmd/*.go)
+  - 9 Internal package files (internal/*/*.go)
+  - 4 Example Terraform projects
+  - 6 Test files
+  - 5 Documentation files
+  - 8 Mapping YAML files
+  - 5 Utility scripts
+  - 3 CI/CD workflow files
+
+════════════════════════════════════════════════════════════════════════════════
+
+🚀 QUICK START
+
+1. Install dependencies:
+   make install-deps
+
+2. Review documentation:
+   - Start: docs/ARCHITECTURE.md
+   - Then: docs/CONTRIBUTING.md
+   - Reference: docs/STRUCTURE_GUIDE.md
+
+3. Create bootstrap files:
+   - main.go (entry point)
+   - cmd/root.go (CLI setup)
+   - internal/parser/terraform_parser.go
+   - mappings/aws_mapping.yaml
+
+4. Build:
+   make build
+
+5. Test:
+   make test
+
+════════════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTATION READING ORDER
+
+1. README.md                    (Project overview)
+2. SETUP_COMPLETE.md           (What was created)
+3. docs/ARCHITECTURE.md        (System design)
+4. docs/CONTRIBUTING.md        (Development setup)
+5. docs/STRUCTURE_GUIDE.md     (Navigation reference)
+6. PROJECT_STRUCTURE.md        (Detailed descriptions)
+
+════════════════════════════════════════════════════════════════════════════════
+
+🎯 PHASE ROADMAP
+
+Phase 1: MVP (Open Source)           ← YOU ARE HERE
+  ✅ Project structure complete
+  🔨 CLI tool (in progress)
+  🔨 Terraform parser (in progress)
+  🔨 IAM mapping database (in progress)
+  🔨 Policy generator (in progress)
+
+Phase 2: CloudTrail Learning (Commercial)
+  📋 Planned - AWS event analysis
+  
+Phase 3: CI/CD Integration (Commercial)
+  📋 Planned - GitHub Actions, GitLab CI
+
+Phase 4: Enterprise (Commercial Advanced)
+  📋 Planned - SaaS portal, multi-account
+
+════════════════════════════════════════════════════════════════════════════════
+
+Legend:
+  📄 = File (✅ = Created, TO CREATE = Next step)
+  📁 = Directory
+  ✅ = Already created
+  🔨 = In progress
+  📋 = Planned
+
+════════════════════════════════════════════════════════════════════════════════
+
+                    ✨ Setup Complete! ✨
+                Ready for Phase 1 Development
+                  Let's make security better! 🛡️
+
+════════════════════════════════════════════════════════════════════════════════
