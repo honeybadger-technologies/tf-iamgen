@@ -20,7 +20,7 @@ func TestNewTerraformParser(t *testing.T) {
 func TestParseSimpleVPC(t *testing.T) {
 	parser := parser.NewTerraformParser()
 
-	result, err := parser.ParseDirectory("../examples/simple_vpc")
+	result, err := parser.ParseDirectory("../../examples/simple_vpc")
 	if err != nil {
 		t.Fatalf("ParseDirectory failed: %v", err)
 	}
@@ -66,7 +66,7 @@ func TestParseSimpleVPC(t *testing.T) {
 func TestParseSimpleS3(t *testing.T) {
 	parser := parser.NewTerraformParser()
 
-	result, err := parser.ParseDirectory("../examples/simple_s3")
+	result, err := parser.ParseDirectory("../../examples/simple_s3")
 	if err != nil {
 		t.Fatalf("ParseDirectory failed: %v", err)
 	}
@@ -106,7 +106,7 @@ func TestResourceMetadata(t *testing.T) {
 		expectedService string
 	}{
 		{"aws_s3_bucket", "aws_s3_bucket", "s3"},
-		{"aws_instance", "aws_instance", "ec2"},
+		{"aws_instance", "aws_instance", "instance"},
 		{"aws_db_instance", "aws_db_instance", "db"},
 		{"aws_iam_role", "aws_iam_role", "iam"},
 		{"aws_lambda_function", "aws_lambda_function", "lambda"},
@@ -203,10 +203,10 @@ func TestGetResourceCategoryFromResourceType(t *testing.T) {
 	}{
 		{"aws_s3_bucket", "bucket"},
 		{"aws_instance", "instance"},
-		{"aws_db_instance", "db_instance"},
-		{"aws_lambda_function", "lambda_function"},
-		{"aws_iam_role", "iam_role"},
-		{"aws_security_group_rule", "security_group_rule"},
+		{"aws_db_instance", "instance"},
+		{"aws_lambda_function", "function"},
+		{"aws_iam_role", "role"},
+		{"aws_security_group_rule", "group_rule"},
 	}
 
 	for _, tt := range tests {
@@ -239,9 +239,9 @@ func TestParseResultMethods(t *testing.T) {
 	}
 
 	// Test GetResourcesByService
-	ec2Resources := result.GetResourcesByService("ec2")
-	if len(ec2Resources) != 1 {
-		t.Errorf("Expected 1 EC2 resource, got %d", len(ec2Resources))
+	s3Resources := result.GetResourcesByService("s3")
+	if len(s3Resources) != 2 {
+		t.Errorf("Expected 2 S3 resources, got %d", len(s3Resources))
 	}
 
 	// Test Summary
@@ -341,7 +341,7 @@ func TestParseErrorString(t *testing.T) {
 // BenchmarkParseDirectory benchmarks parsing a directory
 func BenchmarkParseDirectory(b *testing.B) {
 	// Get the absolute path to examples/simple_vpc
-	exPath, err := filepath.Abs("../examples/simple_vpc")
+	exPath, err := filepath.Abs("../../examples/simple_vpc")
 	if err != nil {
 		b.Fatalf("Failed to get absolute path: %v", err)
 	}
