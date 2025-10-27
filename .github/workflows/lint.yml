@@ -36,7 +36,7 @@ jobs:
       run: go vet ./...
     
     - name: Run golangci-lint
-      uses: golangci/golangci-lint-action@v3
+      uses: golangci/golangci-lint-action@v4
       with:
         version: latest
         args: --timeout=5m --out-format=github-actions
@@ -71,7 +71,7 @@ jobs:
       continue-on-error: true
     
     - name: Upload Gosec results to GitHub Security
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3
       if: always()
       with:
         sarif_file: gosec-report.sarif
