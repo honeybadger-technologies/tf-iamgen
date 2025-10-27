@@ -4,6 +4,13 @@
 
 Helps DevOps and SecOps teams achieve least-privilege IAM configurations without guesswork.
 
+[![Build Status](https://github.com/honeybadger/tf-iamgen/workflows/Build/badge.svg)](https://github.com/honeybadger/tf-iamgen/actions/workflows/build.yml)
+[![Tests Status](https://github.com/honeybadger/tf-iamgen/workflows/Test/badge.svg)](https://github.com/honeybadger/tf-iamgen/actions/workflows/test.yml)
+[![Lint Status](https://github.com/honeybadger/tf-iamgen/workflows/Lint/badge.svg)](https://github.com/honeybadger/tf-iamgen/actions/workflows/lint.yml)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/honeybadger/tf-iamgen)](https://golang.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/honeybadger/tf-iamgen)](https://goreportcard.com/report/github.com/honeybadger/tf-iamgen)
+
 ## 🎯 Quick Start
 
 ```bash
@@ -49,7 +56,7 @@ tf-iamgen/
 
 | Phase | Features | Status |
 |-------|----------|--------|
-| **1: MVP** | Static analysis, policy generation, CLI | 🔨 In Progress |
+| **1: MVP** | Static analysis, policy generation, CLI | ✅ Complete |
 | **2: CloudTrail Learning** | Dynamic analysis, least-privilege refinement, dashboard | 📋 Planned |
 | **3: CI/CD Integration** | GitHub Actions, GitLab CI, access analyzer | 📋 Planned |
 | **4: Enterprise** | Multi-account, SaaS portal, ML optimization | 📋 Planned |
