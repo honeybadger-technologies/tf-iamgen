@@ -1,0 +1,59 @@
+# RDS Resource to IAM Actions Mapping
+# Defines minimum IAM permissions needed for RDS operations
+
+aws_db_instance:
+  service: rds
+  description: "RDS Database Instance - Managed relational database"
+  actions:
+    create:
+      - rds:CreateDBInstance
+      - rds:AddTagsToResource
+    read:
+      - rds:DescribeDBInstances
+      - rds:DescribeDBClusters
+    update:
+      - rds:ModifyDBInstance
+      - rds:ModifyDBCluster
+    delete:
+      - rds:DeleteDBInstance
+
+aws_db_parameter_group:
+  service: rds
+  description: "RDS Parameter Group - Database configuration parameters"
+  actions:
+    create:
+      - rds:CreateDBParameterGroup
+    read:
+      - rds:DescribeDBParameterGroups
+      - rds:DescribeDBParameters
+    update:
+      - rds:ModifyDBParameterGroup
+    delete:
+      - rds:DeleteDBParameterGroup
+
+aws_db_subnet_group:
+  service: rds
+  description: "RDS Subnet Group - Subnets for database deployment"
+  actions:
+    create:
+      - rds:CreateDBSubnetGroup
+    read:
+      - rds:DescribeDBSubnetGroups
+    update:
+      - rds:ModifyDBSubnetGroup
+    delete:
+      - rds:DeleteDBSubnetGroup
+
+aws_db_security_group:
+  service: rds
+  description: "RDS Security Group - EC2-Classic database security group"
+  actions:
+    create:
+      - rds:CreateDBSecurityGroup
+    read:
+      - rds:DescribeDBSecurityGroups
+    update:
+      - rds:AuthorizeDBSecurityGroupIngress
+      - rds:RevokeDBSecurityGroupIngress
+    delete:
+      - rds:DeleteDBSecurityGroup

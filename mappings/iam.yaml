@@ -1,0 +1,103 @@
+# IAM Resource to IAM Actions Mapping
+# Defines minimum IAM permissions needed for IAM operations
+
+aws_iam_role:
+  service: iam
+  description: "IAM Role - Identity with permissions"
+  actions:
+    create:
+      - iam:CreateRole
+      - iam:PutRolePolicy
+    read:
+      - iam:GetRole
+      - iam:ListRolePolicies
+      - iam:ListAttachedRolePolicies
+    update:
+      - iam:UpdateAssumeRolePolicy
+      - iam:PutRolePolicy
+    delete:
+      - iam:DeleteRole
+      - iam:DeleteRolePolicy
+
+aws_iam_policy:
+  service: iam
+  description: "IAM Policy - Permissions policy"
+  actions:
+    create:
+      - iam:CreatePolicy
+    read:
+      - iam:GetPolicy
+      - iam:GetPolicyVersion
+      - iam:ListPolicyVersions
+    update:
+      - iam:CreatePolicyVersion
+    delete:
+      - iam:DeletePolicy
+
+aws_iam_role_policy:
+  service: iam
+  description: "IAM Role Policy - Inline policy attached to role"
+  actions:
+    create:
+      - iam:PutRolePolicy
+    read:
+      - iam:GetRolePolicy
+    update:
+      - iam:PutRolePolicy
+    delete:
+      - iam:DeleteRolePolicy
+
+aws_iam_role_policy_attachment:
+  service: iam
+  description: "IAM Role Policy Attachment - Attach managed policy to role"
+  actions:
+    create:
+      - iam:AttachRolePolicy
+    read:
+      - iam:ListAttachedRolePolicies
+    delete:
+      - iam:DetachRolePolicy
+
+aws_iam_user:
+  service: iam
+  description: "IAM User - Individual user account"
+  actions:
+    create:
+      - iam:CreateUser
+      - iam:CreateAccessKey
+    read:
+      - iam:GetUser
+      - iam:ListUserPolicies
+    update:
+      - iam:UpdateUser
+    delete:
+      - iam:DeleteUser
+      - iam:DeleteAccessKey
+
+aws_iam_group:
+  service: iam
+  description: "IAM Group - Collection of users"
+  actions:
+    create:
+      - iam:CreateGroup
+    read:
+      - iam:GetGroup
+      - iam:ListGroupMembers
+    update:
+      - iam:AddUserToGroup
+      - iam:RemoveUserFromGroup
+    delete:
+      - iam:DeleteGroup
+
+aws_iam_instance_profile:
+  service: iam
+  description: "IAM Instance Profile - Role for EC2 instances"
+  actions:
+    create:
+      - iam:CreateInstanceProfile
+      - iam:AddRoleToInstanceProfile
+    read:
+      - iam:GetInstanceProfile
+    delete:
+      - iam:RemoveRoleFromInstanceProfile
+      - iam:DeleteInstanceProfile

@@ -1,0 +1,125 @@
+# S3 Resource to IAM Actions Mapping
+# Defines the minimum IAM permissions needed for various S3 operations
+
+aws_s3_bucket:
+  service: s3
+  description: "S3 Bucket - Basic bucket operations"
+  actions:
+    create:
+      - s3:CreateBucket
+    read:
+      - s3:GetBucketLocation
+      - s3:GetBucketVersioning
+      - s3:ListBucket
+      - s3:GetBucketTagging
+    update:
+      - s3:PutBucketVersioning
+      - s3:PutBucketTagging
+    delete:
+      - s3:DeleteBucket
+  attribute_actions:
+    versioning:
+      - s3:GetBucketVersioning
+      - s3:PutBucketVersioning
+      - s3:ListBucketVersions
+    logging:
+      - s3:GetBucketLogging
+      - s3:PutBucketLogging
+    server_side_encryption_configuration:
+      - s3:GetEncryptionConfiguration
+      - s3:PutEncryptionConfiguration
+
+aws_s3_bucket_versioning:
+  service: s3
+  description: "S3 Bucket Versioning - Enable/disable versioning"
+  actions:
+    create:
+      - s3:PutBucketVersioning
+    read:
+      - s3:GetBucketVersioning
+    update:
+      - s3:PutBucketVersioning
+    delete:
+      - s3:PutBucketVersioning
+
+aws_s3_bucket_server_side_encryption_configuration:
+  service: s3
+  description: "S3 Bucket Encryption - Server-side encryption rules"
+  actions:
+    create:
+      - s3:PutEncryptionConfiguration
+    read:
+      - s3:GetEncryptionConfiguration
+    update:
+      - s3:PutEncryptionConfiguration
+    delete:
+      - s3:DeleteEncryptionConfiguration
+
+aws_s3_bucket_public_access_block:
+  service: s3
+  description: "S3 Public Access Block - Restrict public access"
+  actions:
+    create:
+      - s3:PutAccountPublicAccessBlock
+    read:
+      - s3:GetAccountPublicAccessBlock
+    update:
+      - s3:PutAccountPublicAccessBlock
+    delete:
+      - s3:DeleteAccountPublicAccessBlock
+
+aws_s3_bucket_logging:
+  service: s3
+  description: "S3 Bucket Logging - Enable access logging"
+  actions:
+    create:
+      - s3:PutBucketLogging
+    read:
+      - s3:GetBucketLogging
+    update:
+      - s3:PutBucketLogging
+    delete:
+      - s3:DeleteBucketLogging
+
+aws_s3_bucket_policy:
+  service: s3
+  description: "S3 Bucket Policy - Attach resource-based policy"
+  actions:
+    create:
+      - s3:PutBucketPolicy
+    read:
+      - s3:GetBucketPolicy
+    update:
+      - s3:PutBucketPolicy
+    delete:
+      - s3:DeleteBucketPolicy
+
+aws_s3_bucket_lifecycle_configuration:
+  service: s3
+  description: "S3 Lifecycle Configuration - Set object lifecycle rules"
+  actions:
+    create:
+      - s3:PutLifecycleConfiguration
+    read:
+      - s3:GetLifecycleConfiguration
+    update:
+      - s3:PutLifecycleConfiguration
+    delete:
+      - s3:DeleteLifecycleConfiguration
+
+aws_s3_object:
+  service: s3
+  description: "S3 Object - Individual object operations"
+  actions:
+    create:
+      - s3:PutObject
+      - s3:PutObjectAcl
+    read:
+      - s3:GetObject
+      - s3:GetObjectVersion
+    update:
+      - s3:PutObject
+      - s3:PutObjectTagging
+    delete:
+      - s3:DeleteObject
+      - s3:DeleteObjectVersion

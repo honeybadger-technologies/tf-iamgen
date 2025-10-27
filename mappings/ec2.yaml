@@ -1,0 +1,153 @@
+# EC2 Resource to IAM Actions Mapping
+# Defines minimum IAM permissions needed for EC2 operations
+
+aws_instance:
+  service: ec2
+  description: "EC2 Instance - Virtual machine"
+  actions:
+    create:
+      - ec2:RunInstances
+      - ec2:CreateTags
+    read:
+      - ec2:DescribeInstances
+    update:
+      - ec2:ModifyInstanceAttribute
+      - ec2:CreateTags
+    delete:
+      - ec2:TerminateInstances
+
+aws_security_group:
+  service: ec2
+  description: "Security Group - Firewall rules"
+  actions:
+    create:
+      - ec2:CreateSecurityGroup
+      - ec2:AuthorizeSecurityGroupIngress
+      - ec2:AuthorizeSecurityGroupEgress
+    read:
+      - ec2:DescribeSecurityGroups
+    update:
+      - ec2:AuthorizeSecurityGroupIngress
+      - ec2:RevokeSecurityGroupIngress
+      - ec2:AuthorizeSecurityGroupEgress
+      - ec2:RevokeSecurityGroupEgress
+    delete:
+      - ec2:DeleteSecurityGroup
+
+aws_security_group_rule:
+  service: ec2
+  description: "Security Group Rule - Individual firewall rule"
+  actions:
+    create:
+      - ec2:AuthorizeSecurityGroupIngress
+      - ec2:AuthorizeSecurityGroupEgress
+    delete:
+      - ec2:RevokeSecurityGroupIngress
+      - ec2:RevokeSecurityGroupEgress
+
+aws_vpc:
+  service: ec2
+  description: "VPC - Virtual Private Cloud"
+  actions:
+    create:
+      - ec2:CreateVpc
+      - ec2:CreateTags
+    read:
+      - ec2:DescribeVpcs
+    update:
+      - ec2:ModifyVpcAttribute
+    delete:
+      - ec2:DeleteVpc
+
+aws_subnet:
+  service: ec2
+  description: "Subnet - Network segment within VPC"
+  actions:
+    create:
+      - ec2:CreateSubnet
+      - ec2:CreateTags
+    read:
+      - ec2:DescribeSubnets
+    update:
+      - ec2:ModifySubnetAttribute
+    delete:
+      - ec2:DeleteSubnet
+
+aws_internet_gateway:
+  service: ec2
+  description: "Internet Gateway - VPC internet connectivity"
+  actions:
+    create:
+      - ec2:CreateInternetGateway
+      - ec2:AttachInternetGateway
+      - ec2:CreateTags
+    read:
+      - ec2:DescribeInternetGateways
+    delete:
+      - ec2:DetachInternetGateway
+      - ec2:DeleteInternetGateway
+
+aws_route_table:
+  service: ec2
+  description: "Route Table - Network routing rules"
+  actions:
+    create:
+      - ec2:CreateRouteTable
+      - ec2:CreateTags
+    read:
+      - ec2:DescribeRouteTables
+    update:
+      - ec2:CreateRoute
+      - ec2:ReplaceRoute
+      - ec2:DeleteRoute
+    delete:
+      - ec2:DeleteRouteTable
+
+aws_route:
+  service: ec2
+  description: "Route - Individual routing rule"
+  actions:
+    create:
+      - ec2:CreateRoute
+    read:
+      - ec2:DescribeRouteTables
+    update:
+      - ec2:ReplaceRoute
+    delete:
+      - ec2:DeleteRoute
+
+aws_route_table_association:
+  service: ec2
+  description: "Route Table Association - Link route table to subnet"
+  actions:
+    create:
+      - ec2:AssociateRouteTable
+    read:
+      - ec2:DescribeRouteTables
+    delete:
+      - ec2:DisassociateRouteTable
+
+aws_nat_gateway:
+  service: ec2
+  description: "NAT Gateway - Network Address Translation"
+  actions:
+    create:
+      - ec2:CreateNatGateway
+      - ec2:CreateTags
+    read:
+      - ec2:DescribeNatGateways
+    delete:
+      - ec2:DeleteNatGateway
+
+aws_eip:
+  service: ec2
+  description: "Elastic IP - Static public IP address"
+  actions:
+    create:
+      - ec2:AllocateAddress
+    read:
+      - ec2:DescribeAddresses
+    update:
+      - ec2:ModifyAddressAttribute
+    delete:
+      - ec2:ReleaseAddress

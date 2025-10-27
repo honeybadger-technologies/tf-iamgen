@@ -1,0 +1,54 @@
+# Lambda Resource to IAM Actions Mapping
+# Defines minimum IAM permissions needed for Lambda operations
+
+aws_lambda_function:
+  service: lambda
+  description: "Lambda Function - Serverless compute"
+  actions:
+    create:
+      - lambda:CreateFunction
+      - lambda:TagResource
+      - iam:PassRole
+    read:
+      - lambda:GetFunction
+      - lambda:GetFunctionConcurrency
+    update:
+      - lambda:UpdateFunctionCode
+      - lambda:UpdateFunctionConfiguration
+    delete:
+      - lambda:DeleteFunction
+
+aws_lambda_permission:
+  service: lambda
+  description: "Lambda Permission - Allow resource to invoke function"
+  actions:
+    create:
+      - lambda:AddPermission
+    read:
+      - lambda:GetPolicy
+    delete:
+      - lambda:RemovePermission
+
+aws_lambda_alias:
+  service: lambda
+  description: "Lambda Alias - Alias for function version"
+  actions:
+    create:
+      - lambda:CreateAlias
+    read:
+      - lambda:GetAlias
+    update:
+      - lambda:UpdateAlias
+    delete:
+      - lambda:DeleteAlias
+
+aws_lambda_layer_version:
+  service: lambda
+  description: "Lambda Layer - Code and content package"
+  actions:
+    create:
+      - lambda:PublishLayerVersion
+    read:
+      - lambda:GetLayerVersion
+    delete:
+      - lambda:DeleteLayerVersion
