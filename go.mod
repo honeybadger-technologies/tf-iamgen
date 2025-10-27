@@ -6,6 +6,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.18.1
 	github.com/spf13/cobra v1.7.0
 	github.com/zclconf/go-cty v1.13.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (

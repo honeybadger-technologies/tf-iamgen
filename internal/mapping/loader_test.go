@@ -229,8 +229,20 @@ func TestAttributeActionsLoaded(t *testing.T) {
 	}
 
 	// Check versioning attribute
-	if _, ok := mapping.AttributeActions["versioning"]; !ok {
+	if versioningActions, ok := mapping.AttributeActions["versioning"]; !ok {
 		t.Error("Expected versioning attribute in aws_s3_bucket")
+	} else {
+		// Check that versioning actions are non-empty
+		hasActions := false
+		for _, actionSet := range versioningActions {
+			if !actionSet.IsEmpty() {
+				hasActions = true
+				break
+			}
+		}
+		if !hasActions {
+			t.Error("Expected versioning to have IAM actions")
+		}
 	}
 }
 

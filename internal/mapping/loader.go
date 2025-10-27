@@ -118,16 +118,17 @@ func parseMappingData(data map[string]interface{}) (*ResourceActionMap, error) {
 	if attrActionsData, ok := data["attribute_actions"]; ok {
 		if attrActionsMap, ok := attrActionsData.(map[string]interface{}); ok {
 			for attrName, attrValue := range attrActionsMap {
-				if attrMap, ok := attrValue.(map[string]interface{}); ok {
-					mapping.AttributeActions[attrName] = make(map[string]ActionSet)
-					for actionName, actionValue := range attrMap {
-						actions, err := parseActionList(actionValue)
-						if err != nil {
-							return nil, fmt.Errorf("failed to parse attribute action %s.%s: %w", attrName, actionName, err)
-						}
-						mapping.AttributeActions[attrName][actionName] = actions
-					}
+				// attrValue should be a list of actions directly, not a nested map
+				actions, err := parseActionList(attrValue)
+				if err != nil {
+					return nil, fmt.Errorf("failed to parse attribute action %s: %w", attrName, err)
 				}
+
+				// Store as a map with a dummy key since our structure expects map[string]map[string]ActionSet
+				if mapping.AttributeActions[attrName] == nil {
+					mapping.AttributeActions[attrName] = make(map[string]ActionSet)
+				}
+				mapping.AttributeActions[attrName]["_default"] = actions
 			}
 		}
 	}

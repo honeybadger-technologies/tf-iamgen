@@ -42,6 +42,7 @@ func (ms *MappingService) GetResourceActions(resourceType string, attributes map
 	if attributes != nil && len(mapping.AttributeActions) > 0 {
 		for attrName := range attributes {
 			if attrActions, exists := mapping.AttributeActions[attrName]; exists {
+				// Get the actions for this attribute (stored with "_default" key)
 				for _, actionSet := range attrActions {
 					allActions.AddAll(actionSet)
 				}
