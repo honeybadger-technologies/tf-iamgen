@@ -4,12 +4,12 @@
 
 Helps DevOps and SecOps teams achieve least-privilege IAM configurations without guesswork.
 
-[![Build Status](https://github.com/honeybadger/tf-iamgen/workflows/Build/badge.svg)](https://github.com/honeybadger/tf-iamgen/actions/workflows/build.yml)
-[![Tests Status](https://github.com/honeybadger/tf-iamgen/workflows/Test/badge.svg)](https://github.com/honeybadger/tf-iamgen/actions/workflows/test.yml)
-[![Lint Status](https://github.com/honeybadger/tf-iamgen/workflows/Lint/badge.svg)](https://github.com/honeybadger/tf-iamgen/actions/workflows/lint.yml)
-[![Go Version](https://img.shields.io/github/go-mod/go-version/honeybadger/tf-iamgen)](https://golang.org/)
+[![Build Status](https://github.com/honeybadger-technologies/tf-iamgen/workflows/Build/badge.svg)](https://github.com/honeybadger-technologies/tf-iamgen/actions/workflows/build.yml)
+[![Tests Status](https://github.com/honeybadger-technologies/tf-iamgen/workflows/Test/badge.svg)](https://github.com/honeybadger-technologies/tf-iamgen/actions/workflows/test.yml)
+[![Lint Status](https://github.com/honeybadger-technologies/tf-iamgen/workflows/Lint/badge.svg)](https://github.com/honeybadger-technologies/tf-iamgen/actions/workflows/lint.yml)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/honeybadger-technologies/tf-iamgen)](https://golang.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![Go Report Card](https://goreportcard.com/badge/github.com/honeybadger/tf-iamgen)](https://goreportcard.com/report/github.com/honeybadger/tf-iamgen)
+[![Go Report Card](https://goreportcard.com/badge/github.com/honeybadger-technologies/tf-iamgen)](https://goreportcard.com/report/github.com/honeybadger-technologies/tf-iamgen)
 
 ## 🎯 Quick Start
 
