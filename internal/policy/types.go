@@ -256,4 +256,3 @@ func NormalizeAction(action string) string {
 	}
 	return action
 }
-
