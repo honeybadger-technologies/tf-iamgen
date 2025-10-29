@@ -13,7 +13,7 @@ help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-20s %s\n", $$1, $$2}'
 
 build: ## Build the application
-	$(GO) build $(GOFLAGS) -ldflags "-X main.Version=$(VERSION)" -o $(BUILD_DIR)/$(APP_NAME) .
+	CGO_ENABLED=0 $(GO) build $(GOFLAGS) -ldflags "-X main.Version=$(VERSION)" -o $(BUILD_DIR)/$(APP_NAME) .
 
 install-deps: ## Install Go dependencies
 	$(GO) mod tidy
