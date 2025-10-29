@@ -119,3 +119,14 @@ func NewMappingService(db *MappingDatabase) *MappingService {
 		cache: make(map[string]ActionSet),
 	}
 }
+
+// AddMappingForTesting adds a mapping directly (for testing only)
+func (db *MappingDatabase) AddMappingForTesting(resourceType string, mapping *ResourceActionMap) {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+
+	if db.mappings == nil {
+		db.mappings = make(map[string]*ResourceActionMap)
+	}
+	db.mappings[resourceType] = mapping
+}
